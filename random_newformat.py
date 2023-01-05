@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #  This script was made by CCD
-#  AIRSS_v3.0_20220525
+#  AIRSS_v3.0_20221205
 #  Condensed Matter Physics Group
 
 #載入函數
@@ -24,7 +24,10 @@ class Atoms_random(Atoms):
 
 	#兩direct位置距離
 	def get_distance(positions1, positions2, cell):
-		vec = positions1 - positions2						#兩位置向量差
+		vec = abs(positions1 - positions2)					#兩位置向量差
+		for i in range(3):							#調整週期性
+			if vec[i] > 0.5:
+				vec[i] -= 1
 		dot = np.dot(vec, cell)							#轉成Cartesian
 		distance = np.linalg.norm(dot)						#計算距離
 		return distance
@@ -68,7 +71,7 @@ class Atoms_random(Atoms):
 
 				#生成亂數並判斷距離
 				while condition == 0:					#無限迴圈
-					random = np.random.rand(1, 3)			#生成[1*3]亂數(位置)
+					random = np.random.rand(3)			#生成[1*3]亂數(位置)
 					max_dis_times = 0				#小於最大距離次數
 					times +=1
 					#print(elements, times, "times random")
@@ -115,8 +118,3 @@ class Atoms_random(Atoms):
 			write_vasp(str(rs.symbols) + "_" + "{:02d}".format(number + 1) + "/POSCAR", rs, direct=True, sort=True, vasp5=True)
 			print(number + 1, "complete")
 
-<<<<<<< HEAD
-Atoms_random.random(20, ["Cu", "Ni", "Si", "Cr"], [10, 10, 10, 10])
-=======
-Atoms_random.random(20, ["Cu", "Si"], [20, 20])
->>>>>>> AIRSS_V1.0
