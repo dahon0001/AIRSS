@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #  This script was made by CCD
-#  AIRSS_v3.0_20220525
+#  AIRSS_v3.0_20221205
 #  Condensed Matter Physics Group
 
 #載入函數
@@ -118,4 +118,3 @@ class Atoms_random(Atoms):
 			write_vasp(str(rs.symbols) + "_" + "{:02d}".format(number + 1) + "/POSCAR", rs, direct=True, sort=True, vasp5=True)
 			print(number + 1, "complete")
 
-Atoms_random.random(20, ["Cu", "Si"], [20, 20])
