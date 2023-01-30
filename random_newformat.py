@@ -74,7 +74,7 @@ class Atoms_random(Atoms):
 					random = np.random.rand(3)			#生成[1*3]亂數(位置)
 					max_dis_times = 0				#小於最大距離次數
 					times +=1
-					print(elements, times, random, "times random")
+					#print(elements, times, "times random", random)
 							
 					#判斷距離
 					for r_pos in range(len(rs.get_scaled_positions())):
