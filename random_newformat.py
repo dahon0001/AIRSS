@@ -52,9 +52,7 @@ class Atoms_random(Atoms):
 			append_list = []
 			for append in range(len(append_elements)):
 				append_list += [append_elements[append]] * numbers_of_elements[append]
-			print(append_list)
 			shuffle(append_list)
-			print(append_list)
 
 			#建構結構
 			rs = Atoms(cell = ini_cell)
@@ -119,5 +117,3 @@ class Atoms_random(Atoms):
 			subprocess.run("mkdir " + str(rs.symbols) + "_" + "{:02d}".format(number + 1), shell = True)	#創建資料夾
 			write_vasp(str(rs.symbols) + "_" + "{:02d}".format(number + 1) + "/POSCAR", rs, direct=True, sort=True, vasp5=True)
 			print(number + 1, "complete")
-
-Atoms_random.random(1, ["Cu", "Ni", "Si"], [5, 3, 7])
