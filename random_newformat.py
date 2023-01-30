@@ -52,7 +52,9 @@ class Atoms_random(Atoms):
 			append_list = []
 			for append in range(len(append_elements)):
 				append_list += [append_elements[append]] * numbers_of_elements[append]
+			print(append_list)
 			shuffle(append_list)
+			print(append_list)
 
 			#建構結構
 			rs = Atoms(cell = ini_cell)
@@ -74,7 +76,7 @@ class Atoms_random(Atoms):
 					random = np.random.rand(3)			#生成[1*3]亂數(位置)
 					max_dis_times = 0				#小於最大距離次數
 					times +=1
-					#print(elements, times, "times random")
+					print(elements, times, random, "times random")
 							
 					#判斷距離
 					for r_pos in range(len(rs.get_scaled_positions())):
@@ -95,10 +97,10 @@ class Atoms_random(Atoms):
 						if r_pos == len(rs.get_scaled_positions()) - 1:			#確認所有位置距離都判斷過
 							#print("all positions are checked")
 
-							if max_dis_times > 0:									#確認最近原子距離在最大距離內
-								atom2 = Atoms(elements, scaled_positions = random, cell = rs.get_cell())	#添加元素Atoms
-								rs += atom2									#加到rs(原來的Atoms)
-								rs.center(vacuum = add_vac)							#將cluster移到中心並加上真空層
+							if max_dis_times > 0:								#確認最近原子距離在最大距離內
+								rs.append(elements)								#將元素加到rs(原來的Atoms)
+								rs[-1].scaled_position = random                 #將位置設為亂數產生位置
+								rs.center(vacuum = add_vac)						#將cluster移到中心並加上真空層
 								rs = sort(rs)									#sort symbol
 								condition += 1									#使while False，打斷迴圈
 								#print("ok, < max", max_dis_times, "times")
@@ -117,3 +119,5 @@ class Atoms_random(Atoms):
 			subprocess.run("mkdir " + str(rs.symbols) + "_" + "{:02d}".format(number + 1), shell = True)	#創建資料夾
 			write_vasp(str(rs.symbols) + "_" + "{:02d}".format(number + 1) + "/POSCAR", rs, direct=True, sort=True, vasp5=True)
 			print(number + 1, "complete")
+
+Atoms_random.random(1, ["Cu", "Ni", "Si"], [5, 3, 7])
